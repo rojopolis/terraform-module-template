@@ -1,0 +1,17 @@
+name: Integration Tests
+on: push
+jobs:
+  go-tests:
+    name: Run Terratest Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+      - uses: autero1/action-terraform@v1.0.3
+        with:
+          terraform_version: 1.2.3
+      - name: Run Go Tests
+        working-directory: test
+        run: go test -v -tags integration
